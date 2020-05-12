@@ -1,0 +1,62 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 100
+    min-spare-threads: 30
+    # 通用配置，跳过一些 jar
+    additional-tld-skip-patterns: jaxb-api.jar,jaxb-core.jar
+  port: 9000
+  # servlet:
+    # context-path: /seed
+
+spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  # jackson时间格式化
+  jackson:
+    time-zone: UTC
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    # 文件上传配置
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  # 下面两个配置是为了handlerException可以捕获404
+  mvc:
+    # springboot的mvn机制默认对于找不到handler，即找不到路径处理controller的方法时会使用404错误交给servlet默认处理
+    # 设置为true让其抛出异常，自定义全局异常才能捕获
+    throw-exception-if-no-handler-found: true
+    # 配置 jsp/thymeleaf 路径...
+    # view:
+      # suffix: .jsp
+      # prefix: /WEB-INF/jsp/
+
+  resources:
+    # 不要开启默认的静态资源处理机制，而是使用自定义的静态资源处理的 resource handler
+    # 如果要用到静态资源，需要手动添加静态资源处理的handler
+    add-mappings: false
+
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.seed.module.pojo.po
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+  configuration:
+    # 打印 sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 实体类属性和db字段名进行驼峰映射，默认true，原生mybatis默认false
+    map-underscore-to-camel-case: true
+    # 是否开启二级缓存，默认 true
+    cache-enabled: true
+
+logging:
+  file:
+    path: logs/seed

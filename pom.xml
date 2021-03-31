@@ -17,7 +17,7 @@
         <swagger-module.version>1.5.23</swagger-module.version>
         <knife.version>2.0.0</knife.version>
         <commons.lang3.version>3.8</commons.lang3.version>
-        <guava.version>28.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <jjwt.version>0.9.0</jjwt.version>
     </properties>
 
